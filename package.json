@@ -1,0 +1,27 @@
+{
+  "name": "@dejy/core",
+  "version": "0.0.1",
+  "description": "Core library for DeJy: A simple single page hybrid application builder.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.17.12"
+  },
+  "dependencies": {
+    "@ionic/core": "^6.1.10",
+    "firebase": "^9.8.3",
+    "mithril": "^2.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeJy/dejy-core.git"
+  },
+  "author": "DeJy Info",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/DeJy/dejy-core/issues"
+  },
+  "homepage": "https://github.com/DeJy/dejy-core#readme"
+}
