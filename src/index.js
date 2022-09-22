@@ -1,6 +1,3 @@
-// export mithril 
-export { default as m } from "mithril"
-
 // import ionic framework css
 import "@ionic/core/css/core.css";
 import "@ionic/core/css/structure.css";
@@ -13,4 +10,8 @@ import "@ionic/core/css/text-transformation.css";
 import "@ionic/core/css/flex-utils.css";
 import "@ionic/core/css/display.css";
 
-export { initDeJy } from "./lib/init";
+
+export { dejyInit } from "./lib/init";
+export { signOut, signInWithEmailAndPassword, getCurrentUser } from "./lib/database";
+export { dejyInput } from "./lib/form";
+export { isObjEmpty } from "./lib/helper";

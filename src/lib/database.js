@@ -1,6 +1,6 @@
 
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword as FBsignInWithEmailAndPassword, signOut as FBsignOut } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getFunctions, httpsCallable, connectFunctionsEmulator } from 'firebase/functions';
 
@@ -11,7 +11,7 @@ let _functions = null;
 let _detachAuthListner = null;
 let _authStatusReady = false;
 let _authStatusRequest = [];
-let _currenUser = null;
+let _currentUser = null;
 
 export function initFirebase(firebaseConfig) {
 
@@ -26,10 +26,10 @@ export function initFirebase(firebaseConfig) {
 
 const _setAuthListner = () => {
 	if (_detachAuthListner) _detachAuthListner();
-	_detachAuthListner = _auth.onAuthStateChanged( user => {
+	_detachAuthListner = _auth.onAuthStateChanged(user => {
 		_authStatusReady = true;
 		_currenUser = user;
-		_authStatusRequest.forEach(cb => { 
+		_authStatusRequest.forEach(cb => {
 			cb(user);
 		})
 		_authStatusRequest.length = 0;
@@ -45,8 +45,23 @@ export function getCurrentUser() {
 	return _currentUser;
 }
 
+export async function signInWithEmailAndPassword(username, pwd) {
+	try {
+		let userCredential = await FBsignInWithEmailAndPassword(_auth, username, pwd)
+		_currentUser = userCredential.user;
+		return _currentUser;
+	} catch (err) {
+		throw { code: err.code, message: err.message };
+	}
+}
 
-/* export callable function
-export async function FNCNAME(params) {
-	return await httpsCallable(_functions, 'fncName')(params);
-}*/
+export async function signOut() {
+	try {
+		await FBsignOut(_auth);
+		_currentUser = null;
+		return _currentUser;
+	} catch (err) {
+		throw { code: err.code, message: err.message };
+	}
+
+}

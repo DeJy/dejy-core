@@ -26,7 +26,7 @@ function _checkAuth(page) {
 
 const onMatch = { onmatch: (a, b, c) => _checkAuth(b) };
 
-exports.initDeJy = async (dejyConfig, firebaseConfig) => {
+exports.dejyInit = async (dejyConfig, firebaseConfig) => {
   _views = dejyConfig.views;
   _loginView = dejyConfig.loginView;
 
@@ -53,5 +53,7 @@ exports.initDeJy = async (dejyConfig, firebaseConfig) => {
 
   m.route(document.getElementById(dejyConfig.rootElement), dejyConfig.defaultView, _routeList);
 
+  return m;
+  
 }
 
