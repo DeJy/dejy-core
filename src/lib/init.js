@@ -10,7 +10,7 @@ let _routeList = {};
 function _checkAuth(page) {
   return new Promise(async (resolve, reject) => {
     // extract page view component
-    let viewSrc = (await _views[page.split('/')[1]]()).default;
+    let viewSrc = (_views[page.split('/')[1]]).default;
     // validate if a user is login or not
     onAuthReady(async user => {
       if (viewSrc.auth && !user) {
@@ -34,7 +34,7 @@ exports.dejyInit = async (dejyConfig, firebaseConfig) => {
   _routeList = {};
   for (var v in _views) {
     let linkName = "/" + v;
-    let js = (await _views[v]()).default;
+    let js = (_views[v]).default;
     // build arguement path
     if (js.arguments) {
       let argArray = js.arguments.trim().split(',');
@@ -54,6 +54,6 @@ exports.dejyInit = async (dejyConfig, firebaseConfig) => {
   m.route(document.getElementById(dejyConfig.rootElement), dejyConfig.defaultView, _routeList);
 
   return m;
-  
+
 }
 
