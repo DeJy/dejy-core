@@ -19,7 +19,7 @@ export function initFirebase(firebaseConfig) {
 	_app = initializeApp(firebaseConfig);
 	_auth = getAuth(_app);
 	_db = getFirestore(_app);
-	_functions = getFunctions(_app, firebaseConfig.functionRegion || 'us-central1');
+	_functions = getFunctions(_app, firebaseConfig.locationId || 'us-central1');
 	if (firebaseConfig.functionEmulator) connectFunctionsEmulator(_functions, firebaseConfig.functionEmulatorHost || "localhost", firebaseConfig.functionEmulatorPort || 5001);
 	_setAuthListner();
 }
@@ -28,7 +28,7 @@ const _setAuthListner = () => {
 	if (_detachAuthListner) _detachAuthListner();
 	_detachAuthListner = _auth.onAuthStateChanged(user => {
 		_authStatusReady = true;
-		_currenUser = user;
+		_currentUser = user;
 		_authStatusRequest.forEach(cb => {
 			cb(user);
 		})
